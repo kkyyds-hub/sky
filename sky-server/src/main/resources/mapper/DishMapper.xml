@@ -27,4 +27,11 @@
     <delete id="deleteById">
         delete from dish where id = #{id}
     </delete>
+
+    <delete id="deleteByIds">
+        delete from dish where id in
+        <foreach item="id" collection="ids" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>
