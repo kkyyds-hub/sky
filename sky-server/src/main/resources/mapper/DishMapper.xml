@@ -23,4 +23,8 @@
         </where>
         order by d.create_time desc
     </select>
+
+    <delete id="deleteById">
+        delete from dish where id = #{id}
+    </delete>
 </mapper>
