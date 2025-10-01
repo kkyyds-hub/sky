@@ -120,6 +120,15 @@ public class DishServiceImpl implements DishService {
         }
 
     }
+
+    @Override
+    public List<DishVO> list(Long categoryId) {
+        DishVO dishVO = DishVO.builder()
+                .status(StatusConstant.ENABLE)
+                .build();
+        return dishMapper.list(dishVO);
+
+    }
 }
 
 
