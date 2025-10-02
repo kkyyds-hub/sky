@@ -11,6 +11,7 @@
         </foreach>
     </insert>
 
+
     <select id="countByDishId" resultType="java.lang.Long">
         select setmeal_id from setmeal_dish where dish_id in
         <foreach item="dishId" collection="list" separator="," open="(" close=")">

@@ -9,6 +9,7 @@
         values (#{categoryId}, #{name}, #{price}, #{status}, #{description}, #{image}, #{createTime}, #{updateTime},
                 #{createUser}, #{updateUser})
     </insert>
+
     <select id="page" resultType="com.sky.vo.SetmealVO">
         select
         s.*,c.name categoryName
@@ -31,4 +32,5 @@
         </where>
         order by s.create_time desc
     </select>
+
 </mapper>
