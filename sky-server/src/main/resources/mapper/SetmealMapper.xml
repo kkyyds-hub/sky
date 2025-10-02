@@ -9,6 +9,32 @@
         values (#{categoryId}, #{name}, #{price}, #{status}, #{description}, #{image}, #{createTime}, #{updateTime},
                 #{createUser}, #{updateUser})
     </insert>
+    <update id="update">
+        update setmeal
+        <set>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="image != null">
+                image = #{image},  <!-- 补充接口文档要求的image字段 -->
+            </if>
+            update_time = now(),   <!-- 建议添加更新时间 -->
+            update_user = #{updateUser}  <!-- 建议添加更新人 -->
+        </set>
+        WHERE id = #{id}  <!-- 🔥 必须添加的条件 -->
+    </update>
 
     <select id="page" resultType="com.sky.vo.SetmealVO">
         select
@@ -32,5 +58,6 @@
         </where>
         order by s.create_time desc
     </select>
+
 
 </mapper>
