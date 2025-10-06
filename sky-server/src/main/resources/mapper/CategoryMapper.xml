@@ -44,8 +44,8 @@
             <if test="type != null">
                 and type = #{type}
             </if>
-            order by sort
         </where>
+        order by sort  <!-- ✅ 正确：放在 <where> 标签外部 -->
     </select>
 
 
