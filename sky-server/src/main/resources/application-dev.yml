@@ -7,6 +7,9 @@ sky:
     username: root
     password: 1234
 
+  wechat:
+    appid: wx65dd9631aceff935
+    secret: f953432769f0b0ce4ba6e1f9777fb7f9
 
   redis:
     host: localhost
