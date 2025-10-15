@@ -12,4 +12,8 @@ public interface OrderService {
     void paySuccess(String outTradeNo);
 
     PageResult pageQuery4User(int page, int pageSize, Integer status);
+
+    void userCancelById(Long id) throws Exception;
+
+    void repetition(Long id);
 }
