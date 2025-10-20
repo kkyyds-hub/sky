@@ -1,12 +1,15 @@
 package com.sky.controller.user;
 
+import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersPaymentDTO;
 import com.sky.dto.OrdersSubmitDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.OrderService;
 import com.sky.vo.OrderPaymentVO;
+import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
+import com.sky.vo.OrderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -57,5 +60,30 @@ public class orderController {
         orderService.repetition(id);
         return Result.success();
     }
+
+    @GetMapping("/conditionSearch")
+    @ApiOperation("订单搜索")
+    public Result<PageResult> conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO){
+        PageResult pageResult = orderService.conditionSearch(ordersPageQueryDTO);
+
+        return Result.success(pageResult);
+    }
+
+    @GetMapping("/statistics")
+    @ApiOperation("统计")
+    public Result<OrderStatisticsVO> statistics(){
+        OrderStatisticsVO orderStatisticsVO = orderService.statistics();
+        return Result.success(orderStatisticsVO);
+    }
+
+    @GetMapping("/details/{id}")
+    @ApiOperation("订单详情")
+    public Result<Object> details(@PathVariable("id") Long id){
+        log.info("查询订单详情，订单id为：{}", id);
+        OrderVO orderVO = orderService.details(id);
+        return Result.success(orderVO);
+    }
+
+
 
 }

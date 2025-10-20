@@ -26,4 +26,7 @@ public interface OrderMapper  {
     Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
 
     Orders getById(Long id);
+
+
+    Integer countStatus(Integer toBeConfirmed);
 }
