@@ -1,5 +1,6 @@
 package com.sky.controller.user;
 
+import com.sky.dto.OrdersConfirmDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersPaymentDTO;
 import com.sky.dto.OrdersSubmitDTO;
@@ -78,10 +79,18 @@ public class orderController {
 
     @GetMapping("/details/{id}")
     @ApiOperation("订单详情")
-    public Result<Object> details(@PathVariable("id") Long id){
+    public Result<Object> details(@PathVariable("id") Long id) {
         log.info("查询订单详情，订单id为：{}", id);
         OrderVO orderVO = orderService.details(id);
         return Result.success(orderVO);
+    }
+
+    @PutMapping("confirm")
+    @ApiOperation("确认订单")
+    public Result confirm(@RequestBody OrdersConfirmDTO ordersConfirmDTO) {
+        log.info("确认订单：{}", ordersConfirmDTO);
+        orderService.confirm(ordersConfirmDTO);
+        return Result.success();
     }
 
 
