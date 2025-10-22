@@ -19,6 +19,7 @@ public interface OrderMapper  {
     Orders getByNumber(String orderNumber);
 
     /**
+     *
      * 修改订单信息
      * @param orders
      */
@@ -31,5 +32,7 @@ public interface OrderMapper  {
 
     Integer countStatus(Integer toBeConfirmed);
 
-    List<OrderDetail> getBuStatusAndOrderTimeLT(Integer status, LocalDateTime orderTime);
+
+    @Select("select * from orders where status = #{status} and order_time < #{orderTime}")
+    List<Orders> getByStatusAndOrdertimeLT(Integer status, LocalDateTime orderTime);
 }
