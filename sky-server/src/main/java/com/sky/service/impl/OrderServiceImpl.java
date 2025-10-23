@@ -39,6 +39,8 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private UserMapper userMapper;
+
+
     @Autowired
     private OrderMapper orderMapper;
 
@@ -132,9 +134,11 @@ public class OrderServiceImpl implements OrderService {
      * @param outTradeNo
      */
     public void paySuccess(String outTradeNo) {
+        // 当前登录用户id
+        Long userId = BaseContext.getCurrentId();
 
-        // 根据订单号查询订单
-        Orders ordersDB = orderMapper.getByNumber(outTradeNo);
+        // 根据订单号查询当前用户的订单
+        Orders ordersDB = orderMapper.getByNumberAndUserId(outTradeNo, userId);
 
         // 根据订单id更新订单的状态、支付方式、支付状态、结账时间
         Orders orders = Orders.builder()
@@ -145,6 +149,15 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
         orderMapper.update(orders);
+        //////////////////////////////////////////////
+        Map map = new HashMap();
+        map.put("type", 1);//消息类型，1表示来单提醒
+        map.put("orderId", orders.getId());
+        map.put("content", "订单号：" + outTradeNo);
+
+        //通过WebSocket实现来单提醒，向客户端浏览器推送消息
+        webSocketServer.sendToAllClient(JSON.toJSONString(map));
+        ///////////////////////////////////////////////////
     }
 
     @Override
