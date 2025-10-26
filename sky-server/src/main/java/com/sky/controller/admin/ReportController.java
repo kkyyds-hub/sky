@@ -9,12 +9,15 @@ import com.sky.vo.UserReportVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.LocalDate;
 
 @RestController
@@ -35,25 +38,24 @@ public class ReportController {
         return Result.success(reportService.getTurnoverStatistics(begin, end));
 
     }
-
     @GetMapping("/userStatistics")
-    @ApiOperation("用户统计")
+    @ApiOperation("用户数据统计")
     public Result<UserReportVO> userStatistics(
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
-        log.info("查询用户数据：{}到{}", begin, end);
-        return Result.success(reportService.getUserStatistics(begin, end));
 
+        return Result.success(reportService.getUserStatistics(begin,end));
     }
 
     @GetMapping("/ordersStatistics")
-    @ApiOperation("订单统计")
+    @ApiOperation("用户数据统计")
     public Result<OrderReportVO> orderStatistics(
-            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
-            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
-        log.info("订单统计数据：{}到{}", begin, end);
-        return Result.success(reportService.getOrderStatistics(begin, end));
+            @DateTimeFormat(pattern = "yyyy-MM-dd")
+            LocalDate begin,
+            @DateTimeFormat(pattern = "yyyy-MM-dd")
+            LocalDate end){
 
+        return Result.success(reportService.getOrderStatistics(begin,end));
     }
 
     @GetMapping("/top10")
@@ -63,4 +65,11 @@ public class ReportController {
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
         return Result.success(reportService.getSalesTop10(begin,end));
     }
+
+    @GetMapping("/export")
+    @ApiOperation("导出数据")
+    public void export(HttpServletResponse  response) throws IOException {
+        reportService.exportBusinessData(response);
+    }
+
 }
