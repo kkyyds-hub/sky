@@ -71,7 +71,7 @@ src/main/java/
 1.  **克隆项目**
  ```
 bash
-git clone https://github.com/[你的GitHub用户名]/sky-takeout.git
+git clone https://github.com/[你的GitHub用户名]/sky-takeout.git](https://github.com/kkyyds-hub/sky.git
 ```
 3.  **数据库初始化**
 - 在MySQL中创建名为 `sky_takeout` 的数据库。
