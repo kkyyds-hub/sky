@@ -9,7 +9,7 @@
 - **数据持久化：** MyBatis
 - **数据库：** MySQL
 - **缓存与消息队列：** Redis
-- **工具与组件：** Apache POI (Excel报表), Java Mail (邮件服务), WebSocket (实时通信)
+- **工具与组件：** Apache POI (Excel报表),WebSocket (实时通信)
 - **项目构建：** Maven (多模块项目: `sky-common`, `sky-pojo`, `sky-server`)
 
 ### 前端技术
@@ -27,7 +27,7 @@
 - **菜品管理：** 新增、删除、修改、上下架
 - **分类管理：** 菜品分类维护
 - **订单管理：** 订单查询、接单、取消、派送
-- **数据统计与导出：** 实现日/周/月销量统计，并支持将数据导出为Excel报表。
+- **数据统计与导出：** 实现日/周/月/Top10销量统计，并支持将数据导出为Excel报表。
 
 ## 🗂️ 项目结构与设计理念
 
@@ -40,24 +40,19 @@
 ```
 src/main/java/
 ├── com/sky/
-│ ├── annotation/ # 自定义注解（如权限校验）
-│ ├── aspect/ # 面向切面编程（AOP），用于统一逻辑处理
-│ ├── config/ # 配置类（Web、Redis、MyBatis等）
-│ ├── constant/ # 常量类
-│ ├── controller/ # 控制层，Restful API接口
-│ ├── converter/ # 数据转换器（DTO/VO/Entity转换）
-│ ├── dto/ # 数据传输对象
-│ ├── entity/ # 实体类
-│ ├── exception/ # 自定义异常处理
-│ ├── filter/ # 过滤器
-│ ├── interceptor/ # 拦截器（如登录校验）
-│ ├── listener/ # 应用监听器
-│ ├── mapper/ # 数据持久层（MyBatis Mapper接口）
-│ ├── properties/ # 自定义配置属性类（如阿里云OSS配置）
-│ ├── service/ # 业务逻辑层接口
-│ │ └── impl/ # 业务逻辑层实现类
-│ ├── task/ # 定时任务
-│ └── websocket/ # WebSocket全双工通信
+│   ├── annotation/     # 自定义注解
+│   ├── aspect/         # 面向切面编程（AOP）
+│   ├── config/         # 配置类（Web、Redis、MyBatis等）
+│   ├── controller/     # 控制层，Restful API接口
+│   │   ├── admin/      # 管理员端控制器
+│   │   ├── user/       # 用户端控制器
+│   │   └── notify/     # 通知相关控制器
+│   ├── handler/        # 处理器（如图中的全局异常处理器）
+│   ├── interceptor/    # 拦截器（如JWT令牌校验）
+│   ├── mapper/         # 数据持久层（MyBatis Mapper接口）
+│   ├── service/        # 业务逻辑层
+│   ├── task/           # 定时任务
+│   └── websocket/      # WebSocket全双工通信
 ```
 ## 🛠️ 快速开始
 
@@ -87,7 +82,7 @@ git clone https://github.com/kkyyds-hub/sky.git
 1.  **规范的多模块架构：** 采用Maven将项目拆分为common、pojo、server模块，体现了高内聚低耦合的设计思想，极大提升了代码的可维护性。
 2.  **清晰的分层与封装：**
 - 严格遵循MVC分层，并引入了DTO/VO进行前后端数据隔离。
-- 使用`converter`层专责对象转换，职责单一。
+- ​​对象转换职责在Service层中清晰完成​​，保证了业务逻辑的纯粹性。
 3.  **企业级通用能力实现：**
 - **权限控制：** 通过自定义`注解`+`拦截器`实现精细化的接口访问权限管理。
 - **统一处理：** 利用`AOP`（切面）和`异常处理器`管理通用逻辑（如日志、性能监控），保证代码健壮性。
