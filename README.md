@@ -30,17 +30,20 @@
 - **数据统计：** 【如果有的话，可以写上】
 
 ## 🗂️ 项目结构
-src/main/java
-├── controller # 控制层，接收请求
-├── service # 业务逻辑层
-│ └── impl # 业务逻辑实现类
-├── mapper # 数据持久层 (MyBatis Mapper接口)
-├── entity # 实体类 (与数据库表对应)
-├── dto # 数据传输对象
-└── config # 配置类
+
+```
+src/main/java/
+├── controller/          # 控制层，接收请求
+├── service/             # 业务逻辑层
+│   └── impl/           # 业务逻辑实现类
+├── mapper/              # 数据持久层 (MyBatis Mapper接口)
+├── entity/              # 实体类 (与数据库表对应)
+├── dto/                 # 数据传输对象
+└── config/              # 配置类
 resources/
-├── application.yml # 主配置文件
-└── mapper/ # MyBatis XML映射文件
+├── application.yml      # 主配置文件
+└── mapper/              # MyBatis XML映射文件
+```
 ## 🛠️ 快速开始
 
 ### 环境准备
